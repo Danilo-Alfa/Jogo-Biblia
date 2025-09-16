@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Shuffle, RotateCcw, Trophy, Heart, BookOpen, Star } from 'lucide-react';
+import Navbar from '../components/Navbar';
 
 const BibleBooksGame = () => {
   const bibleBooks = [
@@ -99,8 +100,10 @@ const BibleBooksGame = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-4">
-      <div className="max-w-7xl mx-auto">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-4 pt-20">
+        <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex justify-center items-center mb-4">
@@ -247,8 +250,9 @@ const BibleBooksGame = () => {
             </div>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

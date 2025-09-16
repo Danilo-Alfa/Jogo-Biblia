@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { Hash, RotateCcw, Trophy, Target, BookOpen, Star, ArrowRight, CheckCircle, XCircle } from 'lucide-react';
+import Navbar from '../../../components/Navbar';
 
 const BibleNumberGame = () => {
   const bibleBooks = [
@@ -174,8 +175,10 @@ const BibleNumberGame = () => {
   const testamentInfo = getTestamentInfo(currentNumber);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4">
-      <div className="max-w-4xl mx-auto">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 pt-20">
+        <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex justify-center items-center mb-4">
@@ -346,8 +349,9 @@ const BibleNumberGame = () => {
             </p>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
