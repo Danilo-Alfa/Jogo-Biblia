@@ -203,9 +203,12 @@ const BibleTypingGame = () => {
       setLastResult(null);
       setUserInput('');
       setShowHint(false);
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
+      // Força o foco no input após um pequeno delay adicional
+      setTimeout(() => {
+        if (inputRef.current && gameState === 'playing') {
+          inputRef.current.focus();
+        }
+      }, 100);
     }, 2000);
   };
 
@@ -227,11 +230,21 @@ const BibleTypingGame = () => {
     setShowHint(!showHint);
   };
 
-  // Focar no input quando o componente carregar
+  // Focar no input quando o componente carregar ou quando o jogo resetar
   useEffect(() => {
-    if (inputRef.current) {
+    if (inputRef.current && gameState === 'playing' && !showResult) {
       inputRef.current.focus();
     }
+  }, [gameState, showResult]);
+
+  // Focar no input quando o componente carregar inicialmente
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 100);
+    return () => clearTimeout(timer);
   }, []);
 
   const currentBook = bibleBooks[currentPosition];
@@ -239,9 +252,9 @@ const BibleTypingGame = () => {
 
   return (
     <>
-      <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900 p-4 pt-20">
-        <div className="max-w-4xl mx-auto">
+    <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900 p-4">
+      <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex justify-center items-center mb-4">
@@ -503,8 +516,8 @@ const BibleTypingGame = () => {
             </div>
           </div>
         </div>
-        </div>
       </div>
+    </div>
     </>
   );
 };
