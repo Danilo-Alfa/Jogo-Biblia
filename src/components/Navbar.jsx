@@ -27,6 +27,12 @@ const Navbar = () => {
       href: '/acertaOLivro',
       icon: Hash,
       description: 'Identifique pelo número'
+    },
+    {
+      name: 'Treino de Holyrics',
+      href: '/holyricsSimulator',
+      icon: Hash,
+      description: 'Treino para ficar no projetor'
     }
   ];
 

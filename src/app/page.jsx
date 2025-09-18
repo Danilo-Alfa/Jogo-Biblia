@@ -142,9 +142,9 @@ const BibleBooksGame = () => {
             </div>
 
             <div className="bg-green-500/20 rounded-xl p-4">
-              <div className="text-white font-semibold mb-2">Ultimo Livro</div>
+              <div className="text-white font-semibold mb-2">Último Livro</div>
               <div className="text-lg font-bold text-green-300">
-                {currentPosition < bibleBooks.length ? (bibleBooks[currentPosition - 1] === undefined && 'Nenhum') : 'Concluído!'}
+                {currentPosition > 0 ? bibleBooks[currentPosition - 1] : 'Nenhum'}
               </div>
             </div>
 

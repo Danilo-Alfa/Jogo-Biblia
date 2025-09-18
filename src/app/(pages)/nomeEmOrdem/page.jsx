@@ -253,7 +253,7 @@ const BibleTypingGame = () => {
   return (
     <>
     <Navbar />
-    <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900 p-4 pt-20">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
