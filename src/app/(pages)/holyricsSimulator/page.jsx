@@ -13,95 +13,17 @@ import {
 import Navbar from "@/components/Navbar";
 
 const BibleNavigationGame = () => {
-  // Lista de livros da Bíblia organizados como no Holyrics (6 fileiras x 11 colunas)
-  const bibleGrid = [
-    // Linha 1
-    [
-      { name: "Gênesis", abbr: "Gn", chapters: 50 },
-      { name: "Êxodo", abbr: "Ex", chapters: 40 },
-      { name: "Levítico", abbr: "Lv", chapters: 27 },
-      { name: "Números", abbr: "Nm", chapters: 36 },
-      { name: "Deuteronômio", abbr: "Dt", chapters: 34 },
-      { name: "Josué", abbr: "Js", chapters: 24 },
-      { name: "Juízes", abbr: "Jz", chapters: 21 },
-      { name: "Rute", abbr: "Rt", chapters: 4 },
-      { name: "1 Samuel", abbr: "1Sm", chapters: 31 },
-      { name: "2 Samuel", abbr: "2Sm", chapters: 24 },
-      { name: "1 Reis", abbr: "1Rs", chapters: 22 },
-    ],
-    // Linha 2
-    [
-      { name: "2 Reis", abbr: "2Rs", chapters: 25 },
-      { name: "1 Crônicas", abbr: "1Cr", chapters: 29 },
-      { name: "2 Crônicas", abbr: "2Cr", chapters: 36 },
-      { name: "Esdras", abbr: "Ed", chapters: 10 },
-      { name: "Neemias", abbr: "Ne", chapters: 13 },
-      { name: "Ester", abbr: "Et", chapters: 10 },
-      { name: "Jó", abbr: "Jó", chapters: 42 },
-      { name: "Salmos", abbr: "Sl", chapters: 150 },
-      { name: "Provérbios", abbr: "Pv", chapters: 31 },
-      { name: "Eclesiastes", abbr: "Ec", chapters: 12 },
-      { name: "Cantares", abbr: "Ct", chapters: 8 },
-    ],
-    // Linha 3
-    [
-      { name: "Isaías", abbr: "Is", chapters: 66 },
-      { name: "Jeremias", abbr: "Jr", chapters: 52 },
-      { name: "Lamentações", abbr: "Lm", chapters: 5 },
-      { name: "Ezequiel", abbr: "Ez", chapters: 48 },
-      { name: "Daniel", abbr: "Dn", chapters: 12 },
-      { name: "Oséias", abbr: "Os", chapters: 14 },
-      { name: "Joel", abbr: "Jl", chapters: 3 },
-      { name: "Amós", abbr: "Am", chapters: 9 },
-      { name: "Obadias", abbr: "Ob", chapters: 1 },
-      { name: "Jonas", abbr: "Jn", chapters: 4 },
-      { name: "Miquéias", abbr: "Mq", chapters: 7 },
-    ],
-    // Linha 4
-    [
-      { name: "Naum", abbr: "Na", chapters: 3 },
-      { name: "Habacuque", abbr: "Hc", chapters: 3 },
-      { name: "Sofonias", abbr: "Sf", chapters: 3 },
-      { name: "Ageu", abbr: "Ag", chapters: 2 },
-      { name: "Zacarias", abbr: "Zc", chapters: 14 },
-      { name: "Malaquias", abbr: "Ml", chapters: 4 },
-      { name: "Mateus", abbr: "Mt", chapters: 28 },
-      { name: "Marcos", abbr: "Mc", chapters: 16 },
-      { name: "Lucas", abbr: "Lc", chapters: 24 },
-      { name: "João", abbr: "Jo", chapters: 21 },
-      { name: "Atos", abbr: "At", chapters: 28 },
-    ],
-    // Linha 5
-    [
-      { name: "Romanos", abbr: "Rm", chapters: 16 },
-      { name: "1 Coríntios", abbr: "1Co", chapters: 16 },
-      { name: "2 Coríntios", abbr: "2Co", chapters: 13 },
-      { name: "Gálatas", abbr: "Gl", chapters: 6 },
-      { name: "Efésios", abbr: "Ef", chapters: 6 },
-      { name: "Filipenses", abbr: "Fp", chapters: 4 },
-      { name: "Colossenses", abbr: "Cl", chapters: 4 },
-      { name: "1 Tessalonicenses", abbr: "1Ts", chapters: 5 },
-      { name: "2 Tessalonicenses", abbr: "2Ts", chapters: 3 },
-      { name: "1 Timóteo", abbr: "1Tm", chapters: 6 },
-      { name: "2 Timóteo", abbr: "2Tm", chapters: 4 },
-    ],
-    // Linha 6
-    [
-      { name: "Tito", abbr: "Tt", chapters: 3 },
-      { name: "Filemom", abbr: "Fm", chapters: 1 },
-      { name: "Hebreus", abbr: "Hb", chapters: 13 },
-      { name: "Tiago", abbr: "Tg", chapters: 5 },
-      { name: "1 Pedro", abbr: "1Pe", chapters: 5 },
-      { name: "2 Pedro", abbr: "2Pe", chapters: 3 },
-      { name: "1 João", abbr: "1Jo", chapters: 5 },
-      { name: "2 João", abbr: "2Jo", chapters: 1 },
-      { name: "3 João", abbr: "3Jo", chapters: 1 },
-      { name: "Judas", abbr: "Jd", chapters: 1 },
-      { name: "Apocalipse", abbr: "Ap", chapters: 22 },
-    ],
+  // Mapeamentos (Display -> chaves do CSV e abreviações)
+  const displayToCsv = { "Gênesis":"Genesis","Êxodo":"Exodo","Levítico":"Levitico","Números":"Numeros","Deuteronômio":"Deuteronomio","Josué":"Josue","Juízes":"Juizes","Rute":"Rute","1 Samuel":"1Samuel","2 Samuel":"2Samuel","1 Reis":"1Reis","2 Reis":"2Reis","1 Crônicas":"1Cronicas","2 Crônicas":"2Cronicas","Esdras":"Esdras","Neemias":"Neemias","Ester":"Ester","Jó":"Jo","Salmos":"Salmos","Provérbios":"Proverbios","Eclesiastes":"Eclesiastes","Cantares":"Canticos","Isaías":"Isaias","Jeremias":"Jeremias","Lamentações":"Lamentacoes","Ezequiel":"Ezequiel","Daniel":"Daniel","Oséias":"Oseias","Joel":"Joel","Amós":"Amos","Obadias":"Obadias","Jonas":"Jonas","Miquéias":"Miqueias","Naum":"Naum","Habacuque":"Habacuque","Sofonias":"Sofonias","Ageu":"Ageu","Zacarias":"Zacarias","Malaquias":"Malaquias","Mateus":"Mateus","Marcos":"Marcos","Lucas":"Lucas","João":"Joao","Atos":"Atos","Romanos":"Romanos","1 Coríntios":"1Corintios","2 Coríntios":"2Corintios","Gálatas":"Galatas","Efésios":"Efesios","Filipenses":"Filipenses","Colossenses":"Colossenses","1 Tessalonicenses":"1Tessalonicenses","2 Tessalonicenses":"2Tessalonicenses","1 Timóteo":"1Timoteo","2 Timóteo":"2Timoteo","Tito":"Tito","Filemom":"Filemom","Hebreus":"Hebreus","Tiago":"Tiago","1 Pedro":"1Pedro","2 Pedro":"2Pedro","1 João":"1Joao","2 João":"2Joao","3 João":"3Joao","Judas":"Judas","Apocalipse":"Apocalipse" };
+  const displayToAbbr = { "Gênesis":"Gn","Êxodo":"Ex","Levítico":"Lv","Números":"Nm","Deuteronômio":"Dt","Josué":"Js","Juízes":"Jz","Rute":"Rt","1 Samuel":"1Sm","2 Samuel":"2Sm","1 Reis":"1Rs","2 Reis":"2Rs","1 Crônicas":"1Cr","2 Crônicas":"2Cr","Esdras":"Ed","Neemias":"Ne","Ester":"Et","Jó":"Jó","Salmos":"Sl","Provérbios":"Pv","Eclesiastes":"Ec","Cantares":"Ct","Isaías":"Is","Jeremias":"Jr","Lamentações":"Lm","Ezequiel":"Ez","Daniel":"Dn","Oséias":"Os","Joel":"Jl","Amós":"Am","Obadias":"Ob","Jonas":"Jn","Miquéias":"Mq","Naum":"Na","Habacuque":"Hc","Sofonias":"Sf","Ageu":"Ag","Zacarias":"Zc","Malaquias":"Ml","Mateus":"Mt","Marcos":"Mc","Lucas":"Lc","João":"Jo","Atos":"At","Romanos":"Rm","1 Coríntios":"1Co","2 Coríntios":"2Co","Gálatas":"Gl","Efésios":"Ef","Filipenses":"Fp","Colossenses":"Cl","1 Tessalonicenses":"1Ts","2 Tessalonicenses":"2Ts","1 Timóteo":"1Tm","2 Timóteo":"2Tm","Tito":"Tt","Filemom":"Fm","Hebreus":"Hb","Tiago":"Tg","1 Pedro":"1Pe","2 Pedro":"2Pe","1 João":"1Jo","2 João":"2Jo","3 João":"3Jo","Judas":"Jd","Apocalipse":"Ap" };
+  const gridOrder = [
+    ["Gênesis","Êxodo","Levítico","Números","Deuteronômio","Josué","Juízes","Rute","1 Samuel","2 Samuel","1 Reis"],
+    ["2 Reis","1 Crônicas","2 Crônicas","Esdras","Neemias","Ester","Jó","Salmos","Provérbios","Eclesiastes","Cantares"],
+    ["Isaías","Jeremias","Lamentações","Ezequiel","Daniel","Oséias","Joel","Amós","Obadias","Jonas","Miquéias"],
+    ["Naum","Habacuque","Sofonias","Ageu","Zacarias","Malaquias","Mateus","Marcos","Lucas","João","Atos"],
+    ["Romanos","1 Coríntios","2 Coríntios","Gálatas","Efésios","Filipenses","Colossenses","1 Tessalonicenses","2 Tessalonicenses","1 Timóteo","2 Timóteo"],
+    ["Tito","Filemom","Hebreus","Tiago","1 Pedro","2 Pedro","1 João","2 João","3 João","Judas","Apocalipse"]
   ];
-
-  // Cores para cada linha (inspiradas no Holyrics)
   const rowColors = [
     "bg-amber-600", // Linha 1 - marrom/amarelo
     "bg-red-600", // Linha 2 - vermelho
@@ -110,7 +32,8 @@ const BibleNavigationGame = () => {
     "bg-green-600", // Linha 5 - verde
     "bg-teal-600", // Linha 6 - azul esverdeado
   ];
-
+  const [bibleGrid, setBibleGrid] = useState([]);
+  const [bookVersesMap, setBookVersesMap] = useState({});
   const [targetReference, setTargetReference] = useState({
     book: "",
     chapter: 1,
@@ -127,39 +50,18 @@ const BibleNavigationGame = () => {
   const [availableChapters, setAvailableChapters] = useState([]);
   const [availableVerses, setAvailableVerses] = useState([]);
 
-  // Função para encontrar livro por nome
-  const findBookByName = (name) => {
-    for (let row of bibleGrid) {
-      for (let book of row) {
-        if (book.name === name) {
-          return book;
-        }
-      }
-    }
-    return null;
-  };
-
-  // Gerar nova referência aleatória
+  // Gerar nova referência aleatória usando dados reais do CSV
   const generateNewReference = () => {
     const allBooks = bibleGrid.flat();
+    if (!allBooks.length) return;
     const randomBook = allBooks[Math.floor(Math.random() * allBooks.length)];
-    const randomChapter = Math.floor(Math.random() * randomBook.chapters) + 1;
-    const maxVerses = Math.min(
-      50,
-      Math.max(
-        10,
-        randomChapter === 1 ? 31 : Math.floor(Math.random() * 40) + 10
-      )
-    );
-    const randomVerse = Math.floor(Math.random() * maxVerses) + 1;
+    const info = bookVersesMap[randomBook.name];
+    if (!info) return;
+    const randomChapter = Math.floor(Math.random() * info.chapters) + 1;
+    const versesInChapter = info.versesPerChapter[randomChapter - 1] || 1;
+    const randomVerse = Math.floor(Math.random() * versesInChapter) + 1;
 
-    setTargetReference({
-      book: randomBook.name,
-      chapter: randomChapter,
-      verse: randomVerse,
-    });
-
-    // Reset seleções
+    setTargetReference({ book: randomBook.name, chapter: randomChapter, verse: randomVerse });
     setSelectedBook("");
     setSelectedChapter(null);
     setSelectedVerse(null);
@@ -168,39 +70,74 @@ const BibleNavigationGame = () => {
     setAvailableVerses([]);
   };
 
-  // Inicializar jogo
+  // Carregar CSV e montar grade
   useEffect(() => {
-    generateNewReference();
-    const savedBestStreak = localStorage?.getItem("bibleNavBestStreak") || 0;
-    setBestStreak(parseInt(savedBestStreak));
+    const load = async () => {
+      try {
+        const res = await fetch('/biblia_versiculos.csv');
+        const text = await res.text();
+        const lines = text.trim().split(/\r?\n/);
+        const csvMap = {};
+        for (const line of lines) {
+          const [book, ch, vs] = line.split(',');
+          if (!book || !ch || !vs) continue;
+          const c = parseInt(ch, 10);
+          const v = parseInt(vs, 10);
+          if (!csvMap[book]) csvMap[book] = {};
+          csvMap[book][c] = v;
+        }
+        const displayMap = {};
+        Object.keys(displayToCsv).forEach((display) => {
+          const key = displayToCsv[display];
+          const chaptersObj = csvMap[key] || {};
+          const chapters = Object.keys(chaptersObj).map(Number);
+          const maxCh = chapters.length ? Math.max(...chapters) : 0;
+          const versesPerChapter = Array.from({ length: maxCh }, (_, i) => chaptersObj[i + 1] || 0);
+          displayMap[display] = { chapters: maxCh, versesPerChapter };
+        });
+        const rows = gridOrder.map((row) => row.map((name) => ({ name, abbr: displayToAbbr[name], chapters: displayMap[name]?.chapters || 0 })));
+        setBookVersesMap(displayMap);
+        setBibleGrid(rows);
+        const savedBestStreak = localStorage?.getItem("bibleNavBestStreak") || 0;
+        setBestStreak(parseInt(savedBestStreak));
+        // Referência inicial será gerada quando os dados estiverem prontos (hook abaixo)
+      } catch (e) {
+        console.error('Erro ao carregar /biblia_versiculos.csv', e);
+      }
+    };
+    load();
   }, []);
+
+  // Gera a primeira referência somente quando CSV/grade estiverem prontos
+  useEffect(() => {
+    if (bibleGrid.length > 0 && Object.keys(bookVersesMap).length > 0 && !targetReference.book) {
+      generateNewReference();
+    }
+  }, [bibleGrid, bookVersesMap, targetReference.book]);
+
+  // Selecionar capítulo (usar total real de versículos do CSV)
+  const handleChapterSelect = (chapter) => {
+    setSelectedChapter(chapter);
+    if (chapter === targetReference.chapter) {
+      const info = bookVersesMap[selectedBook];
+      const versesInChapter = info?.versesPerChapter?.[chapter - 1] || 0;
+      const verses = Array.from({ length: versesInChapter }, (_, i) => i + 1);
+      setAvailableVerses(verses);
+      setGameState("selecting-verse");
+    } else {
+      handleIncorrect();
+    }
+  };
 
   // Selecionar livro
   const handleBookSelect = (bookName) => {
     setSelectedBook(bookName);
 
     if (bookName === targetReference.book) {
-      const book = findBookByName(bookName);
+      const book = bibleGrid.flat().find((book) => book.name === bookName);
       const chapters = Array.from({ length: book.chapters }, (_, i) => i + 1);
       setAvailableChapters(chapters);
       setGameState("selecting-chapter");
-    } else {
-      handleIncorrect();
-    }
-  };
-
-  // Selecionar capítulo
-  const handleChapterSelect = (chapter) => {
-    setSelectedChapter(chapter);
-
-    if (chapter === targetReference.chapter) {
-      const maxVerses = Math.min(
-        50,
-        Math.max(10, chapter === 1 ? 31 : Math.floor(Math.random() * 40) + 10)
-      );
-      const verses = Array.from({ length: maxVerses }, (_, i) => i + 1);
-      setAvailableVerses(verses);
-      setGameState("selecting-verse");
     } else {
       handleIncorrect();
     }
@@ -324,8 +261,9 @@ const BibleNavigationGame = () => {
                     Encontre esta referência:
                   </h2>
                   <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
-                    {targetReference.book} {targetReference.chapter}:
-                    {targetReference.verse}
+                    {targetReference.book
+                      ? `${targetReference.book} ${targetReference.chapter}:${targetReference.verse}`
+                      : 'Carregando referência...'}
                   </div>
                 </div>
 
@@ -344,7 +282,7 @@ const BibleNavigationGame = () => {
                     </div>
                     {streak > 1 && (
                       <div className="text-yellow-300 mt-2">
-                        🔥 Sequência: {streak}
+                        Sequência: {streak}
                       </div>
                     )}
                   </div>
@@ -409,14 +347,14 @@ const BibleNavigationGame = () => {
                         <button
                           key={colIndex}
                           onClick={() => handleBookSelect(book.name)}
-                          disabled={gameState !== "selecting-book"}
+                          disabled={gameState !== "selecting-book" || !targetReference.book}
                           className={`
                           ${
                             rowColors[rowIndex]
                           } hover:opacity-80 text-white text-xs font-bold 
                           py-2 px-1 rounded transition-all duration-200 hover:scale-105
                           ${
-                            gameState !== "selecting-book"
+                            gameState !== "selecting-book" || !targetReference.book
                               ? "opacity-50 cursor-not-allowed"
                               : ""
                           }
@@ -519,7 +457,7 @@ const BibleNavigationGame = () => {
           {/* Instructions */}
           <div className="mt-8 bg-white/5 backdrop-blur-lg rounded-2xl p-6 shadow-2xl">
             <h3 className="text-xl font-bold text-white mb-4 text-center">
-              📖 Como Jogar
+              Como Jogar
             </h3>
             <div className="grid md:grid-cols-3 gap-4 text-center">
               <div className="bg-amber-500/10 rounded-xl p-4">
