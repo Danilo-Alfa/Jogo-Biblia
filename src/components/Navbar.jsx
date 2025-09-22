@@ -21,7 +21,7 @@ const Navbar = () => {
       href: '/nomeEmOrdem',
       icon: Keyboard,
       description: 'Digite os livros em ordem'
-    },
+    },  
     {
       name: 'Acerte o Livro',
       href: '/acertaOLivro',
