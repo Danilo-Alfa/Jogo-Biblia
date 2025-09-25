@@ -6,7 +6,7 @@
 </div>
 
 <div align="center">
-  <h1>📖 Jogo da Bíblia 🎮</h1>
+  <h1>📖 Jogos da Bíblia 🎮</h1>
   <p><strong>Uma plataforma interativa de jogos para aprender e memorizar sobre a Bíblia Sagrada de forma divertida!</strong></p>
 </div>
 
@@ -43,7 +43,7 @@ O **Jogo da Bíblia** é uma aplicação web educativa desenvolvida em Next.js q
     <td align="center" width="33%">
       <img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/music.svg" width="48" height="48" alt="Música" /><br />
       <strong>🎵 Holyrics Simulator</strong><br />
-      <sub>Pratique a ordem dos livros com música</sub>
+      <sub>Simulador do software holyrics! Software utilizado para exibição da plavra, ou de letras de louvores, durante o culto</sub>
     </td>
   </tr>
 </table>
@@ -152,14 +152,14 @@ npm run dev
 - **Meta:** Acerte o máximo de livros possível
 
 ### **3. Nome em Ordem** 📝
-- **Objetivo:** Organize os livros na sequência correta
-- **Desafio:** Trabalhe com grupos de livros embaralhados
+- **Objetivo:** Digite os nomes dos livro em ordem
+- **Desafio:** Acertar as ordem dos livros sem olhar em nenhum lugar
 - **Meta:** Complete a organização perfeita
 
 ### **4. Holyrics Simulator** 🎵
-- **Objetivo:** Pratique com música e ritmo
-- **Desafio:** Sincronize seu conhecimento com a melodia
-- **Meta:** Memorize de forma lúdica e musical
+- **Objetivo:** Pratique o uso do software Holyrics, para utilização durante os cultos
+- **Desafio:** selecionar o livro/capitulo/versiculo o mais rapido possivel
+- **Meta:** Acostuamr com a interface do software holyrics, para uma boa usabilidade quando necessário
 
 <br />
 
@@ -222,7 +222,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## 👥 **Autor**
 
-Desenvolvido com ❤️ por **Danilo Henrique**
+Desenvolvido com ❤️ por **Danilo Alfa**
 
 <br />
 
