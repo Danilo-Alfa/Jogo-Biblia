@@ -169,6 +169,11 @@ const BibleNumberGame = () => {
     setBestStreak(parseInt(savedBestStreak));
   }, []);
 
+  // Função para obter a posição de um livro
+  const getBookPosition = (bookName) => {
+    return bibleBooks.indexOf(bookName) + 1;
+  };
+
   const handleAnswer = (answer) => {
     if (showResult) return;
 
@@ -269,7 +274,9 @@ const BibleNumberGame = () => {
 
             <div className="bg-green-500/20 backdrop-blur-lg rounded-xl p-4 text-center">
               <CheckCircle className="mx-auto text-green-400 mb-2" size={24} />
-              <div className="text-2xl font-bold text-white">{totalQuestions - score}</div>
+              <div className="text-2xl font-bold text-white">
+                {totalQuestions - score}
+              </div>
               <div className="text-sm text-green-200">Erros</div>
             </div>
 
@@ -332,22 +339,23 @@ const BibleNumberGame = () => {
             </div>
 
             {/* Result Display */}
+            {/* Result Display - Versão mais sofisticada */}
             {showResult && (
               <div
-                className={`mb-6 p-4 rounded-xl ${
+                className={`mb-6 p-6 rounded-xl ${
                   isCorrect
                     ? "bg-green-500/20 border-2 border-green-400"
                     : "bg-red-500/20 border-2 border-red-400"
                 }`}
               >
-                <div className="flex items-center justify-center mb-2">
+                <div className="flex items-center justify-center mb-4">
                   {isCorrect ? (
                     <CheckCircle className="text-green-400 mr-2" size={24} />
                   ) : (
                     <XCircle className="text-red-400 mr-2" size={24} />
                   )}
                   <span
-                    className={`text-lg font-bold ${
+                    className={`text-xl font-bold ${
                       isCorrect ? "text-green-300" : "text-red-300"
                     }`}
                   >
@@ -358,12 +366,97 @@ const BibleNumberGame = () => {
                       : "Incorreto!"}
                   </span>
                 </div>
-                <div className="text-white">
+
+                <div className="text-white mb-4 text-center">
                   A resposta correta é:{" "}
-                  <strong>{bibleBooks[currentNumber - 1]}</strong>
+                  <strong className="text-yellow-300">
+                    #{currentNumber} - {bibleBooks[currentNumber - 1]}
+                  </strong>
                 </div>
+
+                {/* Seção educativa mostrando todas as posições */}
+                <div className="bg-black/30 rounded-xl p-4">
+                  <div className="flex items-center justify-center mb-3">
+                    <BookOpen className="text-blue-400 mr-2" size={20} />
+                    <span className="text-blue-200 font-semibold">
+                      Todas as opções apresentadas:
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {options.map((option, index) => {
+                      const position = getBookPosition(option);
+                      const isCorrectOption = position === currentNumber;
+                      const wasSelected = option === selectedAnswer;
+                      const testament = position <= 39 ? "AT" : "NT";
+
+                      return (
+                        <div
+                          key={index}
+                          className={`p-3 rounded-lg flex items-center justify-between transition-all duration-300 ${
+                            isCorrectOption
+                              ? "bg-green-500/40 border border-green-400 shadow-lg"
+                              : wasSelected
+                              ? "bg-red-500/40 border border-red-400"
+                              : "bg-gray-600/30 border border-gray-500"
+                          }`}
+                        >
+                          <div className="flex items-center">
+                            {isCorrectOption && (
+                              <CheckCircle
+                                className="text-green-300 mr-2"
+                                size={16}
+                              />
+                            )}
+                            {wasSelected && !isCorrectOption && (
+                              <XCircle
+                                className="text-red-300 mr-2"
+                                size={16}
+                              />
+                            )}
+                            <span
+                              className={`font-medium ${
+                                isCorrectOption
+                                  ? "text-green-200"
+                                  : wasSelected
+                                  ? "text-red-200"
+                                  : "text-gray-200"
+                              }`}
+                            >
+                              {option}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center">
+                            <span
+                              className={`text-xs px-2 py-1 rounded-full mr-2 ${
+                                testament === "AT"
+                                  ? "bg-amber-500/30 text-amber-200"
+                                  : "bg-blue-500/30 text-blue-200"
+                              }`}
+                            >
+                              {testament}
+                            </span>
+                            <span
+                              className={`font-bold ${
+                                isCorrectOption
+                                  ? "text-green-300"
+                                  : wasSelected
+                                  ? "text-red-300"
+                                  : "text-gray-300"
+                              }`}
+                            >
+                              #{position}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
                 {streak > 0 && isCorrect && (
-                  <div className="text-yellow-300 mt-2">
+                  <div className="text-yellow-300 mt-4 text-center">
                     🔥 Sequência de {streak} acertos!
                   </div>
                 )}
