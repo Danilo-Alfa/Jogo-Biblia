@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
-import { Shuffle, RotateCcw, Trophy, Heart, BookOpen, Star } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Shuffle, RotateCcw, Trophy, Heart, BookOpen, Star, Search, X } from 'lucide-react';
 import Navbar from '../components/Navbar';
 
 const BibleBooksGame = () => {
@@ -28,6 +28,8 @@ const BibleBooksGame = () => {
   const [gameState, setGameState] = useState('playing'); // 'playing', 'won', 'lost'
   const [selectedBooks, setSelectedBooks] = useState([]);
   const [lastClickedBook, setLastClickedBook] = useState('');
+  const [searchFilter, setSearchFilter] = useState('');
+  const searchInputRef = useRef(null);
 
   // Função para embaralhar array
   const shuffleArray = (array) => {
@@ -51,6 +53,7 @@ const BibleBooksGame = () => {
     setGameState('playing');
     setSelectedBooks([]);
     setLastClickedBook('');
+    setSearchFilter('');
   };
 
   const handleBookClick = (book) => {
@@ -64,6 +67,12 @@ const BibleBooksGame = () => {
       setSelectedBooks([...selectedBooks, book]);
       setCurrentPosition(currentPosition + 1);
 
+      // Limpar o filtro de busca e desfoca o input
+      setSearchFilter('');
+      if (searchInputRef.current) {
+        searchInputRef.current.blur();
+      }
+
       // Verificar se ganhou
       if (currentPosition + 1 === bibleBooks.length) {
         setGameState('won');
@@ -71,7 +80,7 @@ const BibleBooksGame = () => {
     } else {
       // Resposta errada
       setErrors(errors + 1);
-      
+
       if (errors + 1 >= 1) {
         setGameState('lost');
       }
@@ -85,7 +94,7 @@ const BibleBooksGame = () => {
     const isWrong = isLastClicked && !selectedBooks.includes(book);
 
     let baseStyle = "m-2 px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-300 transform hover:scale-105 ";
-    
+
     if (isSelected) {
       baseStyle += "bg-green-500 text-white shadow-lg scale-105 ";
     } else if (isWrong) {
@@ -97,6 +106,29 @@ const BibleBooksGame = () => {
     }
 
     return baseStyle;
+  };
+
+  // Função para remover acentos
+  const removeAccents = (str) => {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  };
+
+  // Função para filtrar livros baseado na busca
+  const getFilteredBooks = () => {
+    if (!searchFilter) return shuffledBooks;
+
+    const normalizedFilter = removeAccents(searchFilter.toLowerCase());
+    return shuffledBooks.filter(book =>
+      removeAccents(book.toLowerCase()).includes(normalizedFilter)
+    );
+  };
+
+  // Limpar filtro de busca
+  const clearSearchFilter = () => {
+    setSearchFilter('');
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
   };
 
   return (
@@ -203,15 +235,46 @@ const BibleBooksGame = () => {
 
         {/* Books Grid */}
         <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 shadow-2xl">
-          <div className="flex items-center justify-center mb-6">
-            <Shuffle className="text-yellow-400 mr-2" size={24} />
-            <h3 className="text-2xl font-bold text-white">
-              Livros Embaralhados
-            </h3>
+          <div className="flex flex-col items-center mb-6">
+            <div className="flex items-center justify-center mb-4">
+              <Shuffle className="text-yellow-400 mr-2" size={24} />
+              <h3 className="text-2xl font-bold text-white">
+                Livros Embaralhados
+              </h3>
+            </div>
+
+            {/* Filtro de busca */}
+            <div className="w-full max-w-md">
+              <div className="relative">
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchFilter}
+                  onChange={(e) => setSearchFilter(e.target.value)}
+                  placeholder="Busque por um livro..."
+                  className="w-full px-12 py-3 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-gray-300 border-2 border-white/20 focus:border-yellow-400 focus:outline-none focus:bg-white/15 transition-all duration-300"
+                  disabled={gameState !== 'playing'}
+                />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300" size={20} />
+                {searchFilter && (
+                  <button
+                    onClick={clearSearchFilter}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white transition-colors duration-200"
+                  >
+                    <X size={20} />
+                  </button>
+                )}
+              </div>
+              {searchFilter && (
+                <div className="text-center mt-2 text-yellow-300 text-sm">
+                  {getFilteredBooks().length} livros encontrados
+                </div>
+              )}
+            </div>
           </div>
-          
+
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2">
-            {shuffledBooks.map((book, index) => (
+            {getFilteredBooks().map((book, index) => (
               <button
                 key={index}
                 onClick={() => handleBookClick(book)}
