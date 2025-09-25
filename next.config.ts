@@ -7,10 +7,6 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  experimental: {
-    appDir: true,
-    outputFileTracingIgnores: ['**/*'],
-  },
 };
 
 export default nextConfig;
